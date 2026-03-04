@@ -33,7 +33,9 @@ def generate_text_with_gemini(base_dir):
             with open(base_dir + "urls.txt", "r") as f:
                 lines = f.readlines()
             for line in lines:
-                url, tag = line[:-1].split(", ")
+                items = line[:-1].split(", ")
+                url = items[0]
+                tag = None if len(items) == 1 else items[1]
                 if "AskReddit" in url:
                     tag = "Question"
                 url = url if url[-1] == "/" else url + "/"

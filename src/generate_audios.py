@@ -31,9 +31,13 @@ def cleaning_text(text):
 
 if __name__ == "__main__":
 
-    speaker = 13    
+#    speaker = 13
+#    desired_speed = 1.15  # 通常より速くする
+#    desired_pitch = -0.05  # 少し音を高くする
+
+    speaker = 14
     desired_speed = 1.15  # 通常より速くする
-    desired_pitch = -0.05  # 少し音を高くする
+    desired_pitch = 0  # 少し音を高くする
 
     load_dir = f"data/reddit/subreddit/{sys.argv[1]}/results/checked/"
     load_path_list = glob(load_dir + "*.txt")
