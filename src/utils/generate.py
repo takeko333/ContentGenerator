@@ -1,8 +1,8 @@
 import os
 import time
 import pyperclip
-import connect_browser
 from dotenv import load_dotenv
+from . import connect_browser
 
 load_dotenv()
 url = os.getenv("GEMINI_URL")
@@ -66,6 +66,3 @@ def generate_img(target_page, input_text, save_path="output.png"):
     except Exception as e:
         print(f"操作失敗: {e}")
 
-if __name__ == "__main__":
-
-    generate_txt(connect_browser.page, "こんにちは")
