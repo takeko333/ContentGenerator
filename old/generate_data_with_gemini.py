@@ -152,7 +152,7 @@ def save_generated_image(target_page, input_text, save_dir, idx):
         time.sleep(0.5)
         target_page.keyboard.press("Enter")
         print("画像生成を待機中...")
-        img_selector = 'model-response img[src*="googleusercontent"]'        
+        img_selector = 'model-response img[src*="googleusercontent"]'
         try:
             target_page.wait_for_selector(img_selector, timeout=500000)
         except:
