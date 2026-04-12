@@ -4,17 +4,20 @@ import wikipedia
 from bs4 import BeautifulSoup
 
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) my_reddit_scraper/1.0"
 }
+
 wikipedia.set_lang("en")
 
 def get_text_from_reddit_post(url):
     try:
-        response = requests.get(url)
-        response.raise_for_status()
-        response.encoding = response.apparent_encoding
-        soup = BeautifulSoup(response.text, 'html.parser')
-        return soup.get_text(strip=True, separator='\n')
+        if url[-1] == "/":
+            url += "/"
+        response = requests.get(url + ".json", headers=headers)
+        data = response.json()
+        children = data[0]["data"]["children"]
+        text = children[0]["data"]["selftext"]
+        return text
     except Exception as e:
         print(f"エラー: {e}")
         return None
@@ -34,5 +37,3 @@ def get_text_from_wikipedia(url):
     except Exception as e:
         print(f"エラー: {e}")
         return None
-
-get_text_from_wikipedia("https://en.wikipedia.org/wiki/Edward_Mordake")

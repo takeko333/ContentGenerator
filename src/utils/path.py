@@ -11,9 +11,7 @@ def generate_basename_from_url(url):
         return f"reddit-{community}-{post_title}"
     return None
 
-
-def get_save_path_for_txt(url):
+def get_save_dirname(url):
     timeinfo = datetime.now().strftime("%Y%m%d%H%M%S")
     basename = generate_basename_from_url(url)
-    return f"{timeinfo}-{basename}.txt"
-
+    return f"{timeinfo}-{basename}"

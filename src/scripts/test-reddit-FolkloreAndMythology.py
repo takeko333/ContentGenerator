@@ -18,13 +18,13 @@ if __name__ == "__main__":
         urls = [line.strip() for line in f.readlines() if line.strip()]
         print(urls)
 
-    prompt_path = os.path.join(prompt_dir, "generate_text_from_wikipedia.txt")
+    prompt_path = os.path.join(prompt_dir, "generate_text_from_reddit_post.txt")
     with open(prompt_path, "r", encoding='utf-8') as f:
         prompt = f.read()
 
     for url in urls:
         print("処理対象：", url)
-        content = extract.get_text_from_wikipedia(url)
+        content = extract.get_text_from_reddit_post(url)
         save_dir = os.path.join(result_dir, path.get_save_dirname(url))
         save_path = os.path.join(save_dir, generated_text_filename)
         generate.generate_txt(
