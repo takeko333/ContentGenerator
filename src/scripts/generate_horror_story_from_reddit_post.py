@@ -22,17 +22,25 @@ if __name__ == "__main__":
     with open(prompt_path, "r", encoding='utf-8') as f:
         prompt = f.read()
 
-    for url in urls:
-        print("処理対象：", url)
-        content = extract.get_text_from_reddit_post(url)
-        save_dir = os.path.join(result_dir, path.get_save_dirname(url))
-        save_path = os.path.join(save_dir, generated_text_filename)
-        generate.generate_txt(
-            connect_browser.page, 
-            prompt + "\n" + content, 
-            save_path
-        )
-        log_path = os.path.join(save_dir, log_filename)
-        with open(log_path, "w", encoding='utf-8') as f:
-            f.write(f"URL:\n{url}\n\n")
-            f.write(f"CONTENT:\n{content}")
+    used_urls = []
+    try:
+        for url in urls:
+            print("処理対象：", url)
+            content = extract.get_text_from_reddit_post(url)
+            save_dir = os.path.join(result_dir, path.get_save_dirname(url))
+            save_path = os.path.join(save_dir, generated_text_filename)
+            generate.generate_txt(
+                connect_browser.page, 
+                prompt + "\n" + content, 
+                save_path
+            )
+            log_path = os.path.join(save_dir, log_filename)
+            with open(log_path, "w", encoding='utf-8') as f:
+                f.write(f"URL:\n{url}\n\n")
+                f.write(f"CONTENT:\n{content}")
+            used_urls.append(url)
+    finally:
+        with open(urls_path, "w", encoding='utf-8') as f:
+            for url in urls:
+                if url not in used_urls:
+                    f.write(f"{url}\n")
