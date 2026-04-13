@@ -35,4 +35,4 @@ if __name__ == "__main__":
         log_path = os.path.join(save_dir, log_filename)
         with open(log_path, "w", encoding='utf-8') as f:
             f.write(f"URL:\n{url}\n\n")
-            f.write(f"SRC:\n{content}")
+            f.write(f"CONTENT:\n{content}")

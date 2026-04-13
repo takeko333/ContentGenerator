@@ -18,7 +18,7 @@ if __name__ == "__main__":
         urls = [line.strip() for line in f.readlines() if line.strip()]
         print(urls)
 
-    prompt_path = os.path.join(prompt_dir, "generate_text_from_reddit_post.txt")
+    prompt_path = os.path.join(prompt_dir, "generate_horror_story_from_reddit_post.txt")
     with open(prompt_path, "r", encoding='utf-8') as f:
         prompt = f.read()
 
@@ -35,4 +35,4 @@ if __name__ == "__main__":
         log_path = os.path.join(save_dir, log_filename)
         with open(log_path, "w", encoding='utf-8') as f:
             f.write(f"URL:\n{url}\n\n")
-            f.write(f"SRC:\n{content}")
+            f.write(f"CONTENT:\n{content}")
