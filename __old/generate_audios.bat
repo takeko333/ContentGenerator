@@ -1,2 +1,0 @@
-python src/generate_audios.py CreepyWikipedia
-pause
