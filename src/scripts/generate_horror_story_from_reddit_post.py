@@ -8,7 +8,7 @@ from utils import path
 load_dotenv()
 urls_path = os.getenv("TARGET_URLS_PATH")
 prompt_dir = os.getenv("PROMPT_DIR")
-result_dir = os.getenv("RESULT_DIR")
+generated_data_dir = os.getenv("GENERATED_DATA_DIR")
 generated_text_filename = os.getenv("GENERATED_TEXT_FILENAME")
 log_filename = os.getenv("LOG_FILENAME")
 
@@ -27,7 +27,7 @@ if __name__ == "__main__":
         for url in urls:
             print("処理対象：", url)
             content = extract.get_text_from_reddit_post(url)
-            save_dir = os.path.join(result_dir, path.get_save_dirname(url))
+            save_dir = os.path.join(generated_data_dir, path.get_save_dirname(url))
             save_path = os.path.join(save_dir, generated_text_filename)
             generate.generate_txt(
                 connect_browser.page, 
