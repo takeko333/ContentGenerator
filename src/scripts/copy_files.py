@@ -14,5 +14,8 @@ if __name__ == "__main__":
         load_path = os.path.join(sub_dir, generated_text_filename)
         save_path = os.path.join(input_tts_dir, sub_dir.split("\\")[-1] + ".txt")
         if not os.path.exists(save_path):
-            _ = shutil.copy(load_path, save_path)
-            print("コピー先：", save_path)
+            try:
+                _ = shutil.copy(load_path, save_path)
+                print("コピー成功：", save_path)
+            except Exception as e:
+                print("エラー：", e)
