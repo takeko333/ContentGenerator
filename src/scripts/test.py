@@ -28,10 +28,10 @@ if __name__ == "__main__":
             image_path_list.append(image_path)
             image = tti.text_to_image(line, font_path)
             image.save(image_path)
-            audio_path = save_path_without_ext + ".png"
-            image_path_list.append(image_path)
+            audio_path = save_path_without_ext + ".wav"
+            audio_path_list.append(audio_path)
             audio = tts.text_to_audio(line)
-            audio.export(save_path_without_ext + ".wav", format="wav")
+            audio.export(audio_path, format="wav")
             idx += 1
         concat_image_data_path = f"{save_dir}/concat_image_data.mp4"
         video.concat_images(image_path_list, audio_path_list, concat_image_data_path)
