@@ -4,7 +4,7 @@ import subprocess
 from dotenv import load_dotenv
 from tqdm import tqdm
 from pydub import AudioSegment
-from moviepy.editor import ImageClip, AudioFileClip, VideoFileClip, concatenate_videoclips, concatenate_audioclips
+from moviepy import ImageClip, AudioFileClip, VideoFileClip, concatenate_videoclips, concatenate_audioclips
 
 load_dotenv()
 audio_list_filename = os.getenv("AUDIO_LIST_FILENAME")
@@ -57,5 +57,5 @@ def add_static_audio_to_video(audio_path, image_path, output_path):
     audio = AudioFileClip(audio_path)
     video = VideoFileClip(image_path).set_duration(audio.duration)    
     final_clip = video.set_audio(audio)
-    final_clip = final_clip.subclip(0, audio.duration)    
+    final_clip = final_clip.subclip(0, audio.duration)
     final_clip.write_videofile(output_path, fps=24, codec="libx264", audio_codec="aac")
