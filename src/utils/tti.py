@@ -12,7 +12,7 @@ def text_to_image(text, font_path, font_size=40, image_size=(1280, 720), backgro
     except IOError:
         print("フォントが見つかりません。")
         return
-    full_text = wrap_text(draw, text, width, font_size)
+    full_text = wrap_text(draw, text, width, font, font_size)
     bbox = draw.multiline_textbbox((0, 0), full_text, font=font, stroke_width=3.5)
     block_w = bbox[2] - bbox[0]
     block_h = bbox[3] - bbox[1]
@@ -30,7 +30,7 @@ def text_to_image(text, font_path, font_size=40, image_size=(1280, 720), backgro
     )
     return image
 
-def wrap_text(draw, text, width, font_size, display_rate=0.8):
+def wrap_text(draw, text, width, font, font_size, display_rate=0.8):
     lines = []
     max_text_width = width * display_rate
     wrap_width = int(max_text_width // font_size)    

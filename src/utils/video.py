@@ -7,10 +7,10 @@ from pydub import AudioSegment
 from moviepy.editor import ImageClip, AudioFileClip, VideoFileClip, concatenate_videoclips, concatenate_audioclips
 
 load_dotenv()
-audio_list_path = os.getenv("AUDIO_LIST_PATH")
+audio_list_filename = os.getenv("AUDIO_LIST_FILENAME")
 
 def concat_audios(audio_path_list, output_path):
-    with open(audio_list_path, "w") as f:
+    with open(audio_list_filename, "w") as f:
         for audio_path in audio_path_list:
             x = os.path.abspath(audio_path).replace("\\", "/")
             f.write(f"file '{x}'\n")
@@ -18,7 +18,7 @@ def concat_audios(audio_path_list, output_path):
         "ffmpeg",
         "-f", "concat",
         "-safe", "0",
-        "-i", audio_list_path,
+        "-i", audio_list_filename,
         "-c", "copy",
         output_path
     ]
