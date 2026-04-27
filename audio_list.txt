@@ -1,3 +1,0 @@
-file 'C:/Users/takem/Workspace/Programming/ContentGenerator/outputs/video/20260413194943-reddit-ParanormalEncounters-paranormal_experience_in_algarrobo_chile/001.wav'
-file 'C:/Users/takem/Workspace/Programming/ContentGenerator/outputs/video/20260413194943-reddit-ParanormalEncounters-paranormal_experience_in_algarrobo_chile/002.wav'
-file 'C:/Users/takem/Workspace/Programming/ContentGenerator/outputs/video/20260413194943-reddit-ParanormalEncounters-paranormal_experience_in_algarrobo_chile/003.wav'
