@@ -34,7 +34,7 @@ def create_mp4_timestamps(folder_path):
 
 if __name__ == "__main__":
 
-    target_folder = "outputs/edit-video/"
+    target_folder = "outputs/"
 
     if os.path.exists(target_folder):
         create_mp4_timestamps(target_folder)
