@@ -13,7 +13,7 @@ if __name__ == "__main__":
     target_parts.append(common_parts_dir + "導入A.mp4")
     target_parts.append(common_parts_dir + "導入B.mp4")
 
-    main_parts = glob("inputs/edit-video/*.mp4")
+    main_parts = glob("inputs/edit-video/main-parts/*.mp4")
     main_parts.sort()
     for item in main_parts:
         target_parts.append(item)
