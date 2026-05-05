@@ -6,19 +6,20 @@ from tqdm import tqdm
 from PIL import Image
 from utils import tti, tts, video
 
-load_dotenv()
-input_video_dir = os.getenv("INPUT_VIDEO_DIR")
-output_video_dir = os.getenv("OUTPUT_VIDEO_DIR")
-font_path = os.getenv("FONT_PATH")
-background_image_file_path = os.getenv("BACKGROUND_IMAGE_FILE_PATH")
-
 if __name__ == "__main__":
 
-    speaker = 14
-    background = Image.open(background_image_file_path)
+    load_dotenv()
+    input_dir = os.getenv("INPUT_DIRNAME")
+    output_dir = os.getenv("OUTPUT_DIRNAME")
+    background_image_filename = os.getenv("BACKGROUND_IMAGE_FILENAME")
+    ffmpeg_path = os.getenv("FFMPEG_PATH")
+    font_path = os.getenv("FONT_PATH")
 
-    for input_path in glob(input_video_dir + "*.txt"):
-        save_dir = output_video_dir + os.path.basename(input_path).replace(".txt", "")
+    speaker = 14
+    background = Image.open(os.path.join(input_dir, background_image_filename))
+
+    for input_path in glob(os.path.join(input_dir, "*.txt")):
+        save_dir = os.path.join(output_dir, os.path.basename(input_path).replace(".txt", ""))
         video_path = save_dir + ".mp4"
         if not os.path.exists(video_path):
             os.makedirs(save_dir, exist_ok=True)
@@ -44,6 +45,9 @@ if __name__ == "__main__":
 
             concat_image_data_path = f"{save_dir}/concat_image_data.mp4"
             video.concat_images(image_path_list, audio_path_list, concat_image_data_path)
+
             concat_audio_data_path = f"{save_dir}/concat_audio_data.wav"
-            video.concat_audios(audio_path_list, concat_audio_data_path)
+            base_dir = os.path.dirname(os.path.dirname(os.getcwd()))
+            ffmpeg_path = os.path.join(base_dir, ffmpeg_path)
+            video.concat_audios(audio_path_list, concat_audio_data_path, ffmpeg_path)
             video.add_static_audio_to_video(concat_audio_data_path, concat_image_data_path, video_path)

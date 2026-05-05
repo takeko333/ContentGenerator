@@ -9,13 +9,13 @@ from moviepy import ImageClip, AudioFileClip, VideoFileClip, concatenate_videocl
 load_dotenv()
 audio_list_filename = os.getenv("AUDIO_LIST_FILENAME")
 
-def concat_audios(audio_path_list, output_path):
+def concat_audios(audio_path_list, output_path, ffmpeg_path):
     with open(audio_list_filename, "w") as f:
         for audio_path in audio_path_list:
             x = os.path.abspath(audio_path).replace("\\", "/")
             f.write(f"file '{x}'\n")
     ffmpeg_cmd = [
-        "config/ffmpeg/ffmpeg.exe",
+        ffmpeg_path,
         "-f", "concat",
         "-safe", "0",
         "-i", audio_list_filename,

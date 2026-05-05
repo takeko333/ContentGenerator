@@ -1,9 +1,6 @@
 import os
 from dotenv import load_dotenv
-from utils import extract
-from utils import connect_browser
-from utils import generate
-from utils import path
+from utils import connect_browser, extract, generate, path
 
 load_dotenv()
 urls_path = os.getenv("TARGET_URLS_PATH")
