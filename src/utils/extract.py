@@ -39,7 +39,7 @@ def extract_all_bodies_recursive(data, results):
     """
     if isinstance(data, dict):
         if "body" in data:
-            results.append("> " + data["body"])
+            results.append(">>> " + data["body"])
         # replies や children を探索
         for key in ["replies", "children", "data"]:
             if key in data:
