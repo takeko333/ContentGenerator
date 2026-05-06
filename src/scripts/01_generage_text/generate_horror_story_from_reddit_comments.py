@@ -14,7 +14,7 @@ if __name__ == "__main__":
         print(urls)
 
     prompt_path = os.path.join(input_dir, os.getenv("PROMPT_DIRNAME"))
-    prompt_path = os.path.join(prompt_path, "generate_horror_story_from_reddit_post.txt")
+    prompt_path = os.path.join(prompt_path, "generate_horror_story_from_reddit_comments.txt")
     with open(prompt_path, "r", encoding='utf-8') as f:
         prompt = f.read()
 
@@ -33,19 +33,17 @@ if __name__ == "__main__":
                 f.write(f"URL:\n{url}\n\n")
                 f.write(f"CONTENT:\n")
                 for i, content in enumerate(contents):
-                    print("\n".join(content))
-                    print("-" * 100)
+                    text = content[0] # "\n".join(content)
                     generate.generate_txt(
                         connect_browser.page, 
-                        prompt + "\n" + "\n".join(content), 
+                        prompt + "\n" + text, 
                         save_path.replace(".txt", f"_{str(i).zfill(3)}.txt")
                     )
-                    for line in content:
-                        f.write(f"{line}\n")
-                    f.write(f"{'-' * 20}\n")
-                    break
+                    f.write(f"{text}\n")
+                    f.write(f"{'-' * 100}\n")
             used_urls.append(url)
     finally:
+        print("done.")
         with open(url_data_path, "w", encoding='utf-8') as f:
             for url in urls:
                 if url not in used_urls:
