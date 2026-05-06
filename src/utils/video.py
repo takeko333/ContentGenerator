@@ -60,7 +60,3 @@ def add_static_audio_to_video(audio_path, image_path, output_path):
     final_clip = video.with_audio(audio)
     final_clip = final_clip.subclipped(0, audio.duration)
     final_clip.write_videofile(output_path, fps=24, codec="libx264", audio_codec="aac")
-    video.close()
-    audio.close()
-    if final_clip.audio:
-        final_clip.audio.close()
