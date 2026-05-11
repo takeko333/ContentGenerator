@@ -44,7 +44,7 @@ if __name__ == "__main__":
             used_urls.append(url)
     finally:
         print("done.")
-        with open(url_data_path, "w", encoding='utf-8') as f:
-            for url in urls:
-                if url not in used_urls:
-                    f.write(f"{url}\n")
+#        with open(url_data_path, "w", encoding='utf-8') as f:
+#            for url in urls:
+#                if url not in used_urls:
+#                    f.write(f"{url}\n")

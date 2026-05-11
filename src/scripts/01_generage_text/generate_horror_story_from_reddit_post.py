@@ -2,29 +2,30 @@ import os
 from dotenv import load_dotenv
 from utils import connect_browser, extract, generate, path
 
-load_dotenv()
-urls_path = os.getenv("TARGET_URLS_PATH")
-prompt_dir = os.getenv("PROMPT_DIR")
-generated_data_dir = os.getenv("GENERATED_DATA_DIR")
-generated_text_filename = os.getenv("GENERATED_TEXT_FILENAME")
-log_filename = os.getenv("LOG_FILENAME")
-
 if __name__ == "__main__":
 
-    with open(urls_path, "r", encoding='utf-8') as f:
+    load_dotenv()
+    input_dir = os.getenv("INPUT_DIRNAME")
+    output_dir = os.getenv("OUTPUT_DIRNAME")
+
+    url_data_path = os.path.join(input_dir, os.getenv("URL_DATA_FILENAME"))
+    with open(url_data_path, "r", encoding='utf-8') as f:
         urls = [line.strip() for line in f.readlines() if line.strip()]
         print(urls)
 
-    prompt_path = os.path.join(prompt_dir, "generate_horror_story_from_reddit_post.txt")
+    prompt_path = os.path.join(input_dir, os.getenv("PROMPT_DIRNAME"))
+    prompt_path = os.path.join(prompt_path, "generate_horror_story_from_reddit_comments.txt")
     with open(prompt_path, "r", encoding='utf-8') as f:
         prompt = f.read()
 
     used_urls = []
+    generated_text_filename = os.getenv("GENERATED_TEXT_FILENAME")
+    log_filename = os.getenv("LOG_FILENAME")
     try:
         for url in urls:
             print("処理対象：", url)
             content = extract.get_text_from_reddit_post(url)
-            save_dir = os.path.join(generated_data_dir, path.get_save_dirname(url))
+            save_dir = os.path.join(output_dir, path.get_save_dirname(url))
             save_path = os.path.join(save_dir, generated_text_filename)
             generate.generate_txt(
                 connect_browser.page, 
@@ -37,7 +38,8 @@ if __name__ == "__main__":
                 f.write(f"CONTENT:\n{content}")
             used_urls.append(url)
     finally:
-        with open(urls_path, "w", encoding='utf-8') as f:
-            for url in urls:
-                if url not in used_urls:
-                    f.write(f"{url}\n")
+        print("done.")
+#        with open(urls_path, "w", encoding='utf-8') as f:
+#            for url in urls:
+#                if url not in used_urls:
+#                    f.write(f"{url}\n")
