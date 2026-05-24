@@ -6,15 +6,16 @@ from . import connect_browser
 
 load_dotenv()
 url = os.getenv("GEMINI_URL")
-input_selector = os.getenv("GEMINI_INPUT_SELECTER")
-img_selector = os.getenv("GEMINI_IMG_SELECTER")
-txt_selector = os.getenv("GEMINI_TXT_SELECTER")
+input_selector = os.getenv("GEMINI_INPUT_SELECTOR")
+img_selector = os.getenv("GEMINI_IMG_SELECTOR")
+txt_selector = os.getenv("GEMINI_TXT_SELECTOR")
 
 def generate_txt(target_page, input_text, save_path="output.txt"):
     try:
         target_page.goto(url)
         target_page.wait_for_selector(input_selector, timeout=10000)
         target_page.fill(input_selector, input_text)
+        target_page.click(input_selector)
         target_page.keyboard.press("Enter")
         last_text = ""
         stable_count = 0
@@ -43,6 +44,7 @@ def generate_img(target_page, input_text, save_path="output.png"):
         target_page.goto(url)
         target_page.wait_for_selector(input_selector, timeout=10000)
         target_page.fill(input_selector, input_text)
+        target_page.click(input_selector)
         target_page.keyboard.press("Enter")
         target_page.wait_for_selector(img_selector, timeout=90000)
         time.sleep(3)
@@ -58,6 +60,7 @@ def generate_img(target_page, input_text, save_path="output.png"):
                 response = new_page.goto(src)
                 if response and response.status == 200:
                     buffer = response.body()
+                    os.makedirs(os.path.dirname(save_path), exist_ok=True)
                     with open(save_path, "wb") as f:
                         f.write(buffer)
                     print(f"画像保存完了: {save_path}")

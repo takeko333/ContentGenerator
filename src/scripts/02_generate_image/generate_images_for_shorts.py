@@ -40,12 +40,12 @@ if __name__ == "__main__":
     generated_text_filename = os.getenv("GENERATED_TEXT_FILENAME")
     log_filename = os.getenv("LOG_FILENAME")
     try:
-        timeinfo = "20260520082330" # datetime.now().strftime("%Y%m%d%H%M%S")
+        timeinfo = datetime.now().strftime("%Y%m%d%H%M%S")
         save_dir = os.path.join(output_dir, timeinfo)
         save_text_path = os.path.join(save_dir, generated_text_filename)
         generate.generate_txt(
             connect_browser.page, 
-            prompt_for_image_ideas + "\n" + "\n".join(lines), 
+            prompt_for_image_ideas + "\n" + text, 
             save_text_path
         )
         with open(save_text_path, "r", encoding='utf-8') as f:
