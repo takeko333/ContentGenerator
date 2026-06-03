@@ -10,7 +10,7 @@ input_selector = os.getenv("GEMINI_INPUT_SELECTOR")
 img_selector = os.getenv("GEMINI_IMG_SELECTOR")
 txt_selector = os.getenv("GEMINI_TXT_SELECTOR")
 
-def generate_txt(target_page, input_text, save_path="output.txt"):
+def generate_txt(target_page, input_text, save_path=None):
     try:
         target_page.goto(url)
         target_page.wait_for_selector(input_selector, timeout=10000)
@@ -31,10 +31,11 @@ def generate_txt(target_page, input_text, save_path="output.txt"):
                 last_text = current_text
                 if stable_count >= 5:
                     os.makedirs(os.path.dirname(save_path), exist_ok=True)
-                    with open(save_path, "w", encoding="utf-8") as f:
-                        f.write(last_text)
-                    print(f"テキスト保存完了: {save_path}")
-                    return
+                    if save_path is not None:
+                        with open(save_path, "w", encoding="utf-8") as f:
+                            f.write(last_text)
+                        print(f"テキスト保存完了: {save_path}")
+                    return last_text
         print("タイムアウトまたは生成失敗")
     except Exception as e:
         print(f"操作失敗: {e}")
