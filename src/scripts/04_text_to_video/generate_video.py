@@ -45,7 +45,7 @@ if __name__ == "__main__":
         print("入力テキスト（読み上げ用）に失敗しました。⇒入力テキスト（表示用）で代用します。")
         reading_lines = display_lines
 
-    save_dir = os.path.join(output_dir, "video")
+    save_dir = os.path.join(output_dir, "01_video")
     video_path = save_dir + ".mp4"
     if not os.path.exists(video_path):
         os.makedirs(save_dir, exist_ok=True)
