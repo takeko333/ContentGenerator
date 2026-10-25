@@ -17,6 +17,8 @@ if __name__ == "__main__":
     font_path = os.getenv("FONT_PATH")
 
     speaker = 14
+    speed=1.05
+    pitch=-0.025
     background = Image.open(os.path.join(input_dir, background_image_filename))
 
     prompt_path = os.path.join(input_dir, os.getenv("PROMPT_DIRNAME"))
@@ -61,7 +63,7 @@ if __name__ == "__main__":
             image.save(image_path)
             audio_path = save_path_without_ext + ".wav"
             audio_path_list.append(audio_path)
-            audio = tts.text_to_audio(reading_line, speaker=speaker)
+            audio = tts.text_to_audio(reading_line, speaker=speaker, speed=speed, pitch=pitch)
             audio.export(audio_path, format="wav")
             idx += 1
 
